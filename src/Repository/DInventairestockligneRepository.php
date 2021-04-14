@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\DArtfourniss;
+use App\Entity\DInventairestockligne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method DArtfourniss|null find($id, $lockMode = null, $lockVersion = null)
- * @method DArtfourniss|null findOneBy(array $criteria, array $orderBy = null)
- * @method DArtfourniss[]    findAll()
- * @method DArtfourniss[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DInventairestockligne|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DInventairestockligne|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DInventairestockligne[]    findAll()
+ * @method DInventairestockligne[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DArtfournissRepository extends ServiceEntityRepository
+class DInventairestockligneRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DArtfourniss::class);
+        parent::__construct($registry, DInventairestockligne::class);
     }
 
     // /**
-    //  * @return DArtfourniss[] Returns an array of DArtfourniss objects
+    //  * @return DInventairestockligne[] Returns an array of DInventairestockligne objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DArtfournissRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?DArtfourniss
+    public function findOneBySomeField($value): ?DInventairestockligne
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

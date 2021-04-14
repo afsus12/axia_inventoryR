@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\DMouvementligne;
+use App\Entity\DProtusersmobile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method DMouvementligne|null find($id, $lockMode = null, $lockVersion = null)
- * @method DMouvementligne|null findOneBy(array $criteria, array $orderBy = null)
- * @method DMouvementligne[]    findAll()
- * @method DMouvementligne[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DProtusersmobile|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DProtusersmobile|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DProtusersmobile[]    findAll()
+ * @method DProtusersmobile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DMouvementligneRepository extends ServiceEntityRepository
+class DProtusersmobileRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DMouvementligne::class);
+        parent::__construct($registry, DProtusersmobile::class);
     }
 
     // /**
-    //  * @return DMouvementligne[] Returns an array of DMouvementligne objects
+    //  * @return DProtusersmobile[] Returns an array of DProtusersmobile objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DMouvementligneRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?DMouvementligne
+    public function findOneBySomeField($value): ?DProtusersmobile
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

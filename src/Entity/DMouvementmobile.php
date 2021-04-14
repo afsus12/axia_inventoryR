@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * DMouvementmobil
  *
  * @ORM\Table(name="D_MOUVEMENTMOBIL")
- * @ORM\Entity(repositoryClass="App\Repository\DMouvementmobil")
+ * @ORM\Entity(repositoryClass="App\Repository\DMouvementmobileRepository")
  */
-class DMouvementmobil
+class DMouvementmobile
 {
     /**
      * @var string

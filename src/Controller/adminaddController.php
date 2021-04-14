@@ -3,7 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\DMataccessmobile;
 use App\Entity\DProtusers;
+use App\Entity\DProtusersmobile;
+use App\Repository\DMataccessmobileRepository;
 use DateTime;
 use Doctrine\DBAL\Types\DateTimeType;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,8 +31,8 @@ class adminaddController extends abstractController
     { 
         $data = $request->getContent();
     try{
-        $users= $serilizer->deserialize($data,DProtusers::class,'json');
-        $users->setCbmodification();
+        $users= $serilizer->deserialize($data,DProtusersmobile::class,'json');
+        $users->setCbmodification(new \DateTime());
       
         $errors=$validator->validate($users);
         if (count($errors)>0){
@@ -46,4 +49,61 @@ class adminaddController extends abstractController
     } catch(NotEncodableValueException $e){ return $this->json(['status'=>400,'message'=>$e->getMessage()]);
     }
  }
-}
+     
+
+    /**
+     * @Route("api/users/addroles", name="user_roles")
+     * @Method({"POST"})
+     */
+    
+    public function rolesAdd(Request $request,SerializerInterface $serilizer)
+
+      {
+        $data = $request->getContent();
+        try{
+            $users= $serilizer->deserialize($data,DMataccessmobile::class,'json');
+            $users->setCbmodification(new \DateTime());
+            $users->setMaCreatedat(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($users);
+            $em->flush();   
+    
+            return $this->json($users,201,[]);
+        } catch(NotEncodableValueException $e){ return $this->json(['status'=>400,'message'=>$e->getMessage()]);
+        }
+     }
+
+    /**
+     * @Route("api/users/getusers", name="users_all" )
+     * @Method({"GET"})
+     */
+
+
+public function showAllusers(DMataccessmobileRepository $dep,SerializerInterface $serilizer)
+{ 
+    $intitu = $dep->findAll();  
+    try{
+    $data = $serilizer->serialize($intitu,'json');
+
+    $response = new Response($data);
+    $response->headers->set('Content-Type', 'application/json');
+
+    return $response;
+} catch(NotEncodableValueException $e){ return $this->json(['status'=>400,'message'=>$e->getMessage()]);
+}}
+
+
+
+
+
+
+      
+
+    }
+
+
+
+
+
+
+

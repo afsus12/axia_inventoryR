@@ -1,6 +1,6 @@
 <?php
-namespace App\Entity;
 
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,16 +8,23 @@ use Doctrine\ORM\Mapping as ORM;
  * DMataccessmobile
  *
  * @ORM\Table(name="D_MATACCESSMOBILE")
- * @ORM\Entity(repositoryClass="App\Repository\DMataccessmobileRepository")  
+ * @ORM\Entity(repositoryClass="App\Repository\DMataccessmobileRepository") 
  */
 class DMataccessmobile
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="PROT_User", type="string", length=50, nullable=false)
+     * @ORM\Column(name="PROTM_User", type="string", length=50, nullable=false)
      */
-    private $protUser;
+    private $protmUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="DE_Code", type="string", length=50, nullable=false)
+     */
+    private $deCode;
 
     /**
      * @var bool
@@ -71,16 +78,16 @@ class DMataccessmobile
     private $cbmarq;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="cbCreateur", type="string", length=50, nullable=true)
+     * @ORM\Column(name="cbCreateur", type="string", length=50, nullable=false)
      */
     private $cbcreateur;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
-     * @ORM\Column(name="cbModification", type="datetime", nullable=true)
+     * @ORM\Column(name="cbModification", type="datetime", nullable=false)
      */
     private $cbmodification;
 
@@ -91,14 +98,26 @@ class DMataccessmobile
      */
     private $maCreatedat;
 
-    public function getProtUser(): ?string
+    public function getProtmUser(): ?string
     {
-        return $this->protUser;
+        return $this->protmUser;
     }
 
-    public function setProtUser(string $protUser): self
+    public function setProtmUser(string $protmUser): self
     {
-        $this->protUser = $protUser;
+        $this->protmUser = $protmUser;
+
+        return $this;
+    }
+
+    public function getDeCode(): ?string
+    {
+        return $this->deCode;
+    }
+
+    public function setDeCode(string $deCode): self
+    {
+        $this->deCode = $deCode;
 
         return $this;
     }
@@ -185,7 +204,7 @@ class DMataccessmobile
         return $this->cbcreateur;
     }
 
-    public function setCbcreateur(?string $cbcreateur): self
+    public function setCbcreateur(string $cbcreateur): self
     {
         $this->cbcreateur = $cbcreateur;
 
@@ -197,7 +216,7 @@ class DMataccessmobile
         return $this->cbmodification;
     }
 
-    public function setCbmodification(?\DateTimeInterface $cbmodification): self
+    public function setCbmodification(\DateTimeInterface $cbmodification): self
     {
         $this->cbmodification = $cbmodification;
 

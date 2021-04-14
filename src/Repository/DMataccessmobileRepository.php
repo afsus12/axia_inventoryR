@@ -46,5 +46,16 @@ class DMataccessmobileRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    */ 
+    public function Finddepot($value):array
+    { $entityManager = $this->getEntityManager();
+     $queryBuilder = $entityManager->createQueryBuilder();
+     $queryBuilder->select('a.deCode')
+        ->from(DMataccessmobile::class, 'a')  
+        ->where('a.protmUser = :code')
+        ->setParameter('code', $value);
+      $query = $queryBuilder->getQuery()->getResult() 
+      ; 
+      return $query;            
+    }
 }

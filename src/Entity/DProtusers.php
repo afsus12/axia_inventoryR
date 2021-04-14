@@ -136,7 +136,7 @@ class DProtusers implements UserInterface
      * @ORM\Column(name="cbModification", type="datetime", nullable=true)
      * 
      */
-    private $cbmodification;
+    private $cbmodification = 'CURRENT_TIMESTAMP';
 
     public function getEmCode(): ?string
     {

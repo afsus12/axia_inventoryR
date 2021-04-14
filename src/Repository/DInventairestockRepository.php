@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\DMouvement;
+use App\Entity\DInventairestock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method DMouvement|null find($id, $lockMode = null, $lockVersion = null)
- * @method DMouvement|null findOneBy(array $criteria, array $orderBy = null)
- * @method DMouvement[]    findAll()
- * @method DMouvement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DInventairestock|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DInventairestock|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DInventairestock[]    findAll()
+ * @method DInventairestock[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DMouvementRepository extends ServiceEntityRepository
+class DInventairestockRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DMouvement::class);
+        parent::__construct($registry, DInventairestock::class);
     }
 
     // /**
-    //  * @return DMouvement[] Returns an array of DMouvement objects
+    //  * @return DInventairestock[] Returns an array of DInventairestock objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DMouvementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?DMouvement
+    public function findOneBySomeField($value): ?DInventairestock
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')
