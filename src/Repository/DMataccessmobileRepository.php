@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\DDepot;
 use App\Entity\DMataccessmobile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,9 +51,13 @@ class DMataccessmobileRepository extends ServiceEntityRepository
     public function Finddepot($value):array
     { $entityManager = $this->getEntityManager();
      $queryBuilder = $entityManager->createQueryBuilder();
-     $queryBuilder->select('a.deCode')
-        ->from(DMataccessmobile::class, 'a')  
+     $queryBuilder->select('b.deIntitule')
+        ->from(DMataccessmobile::class, 'a') 
+        ->from(DDepot::class,'b') 
+        
         ->where('a.protmUser = :code')
+        ->andWhere('a.deCode=b.deCode')
+       
         ->setParameter('code', $value);
       $query = $queryBuilder->getQuery()->getResult() 
       ; 

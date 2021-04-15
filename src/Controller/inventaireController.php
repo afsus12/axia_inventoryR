@@ -89,7 +89,7 @@ class inventaireController extends AbstractController {
     $em = $this->getDoctrine()->getManager();
     $em->persist($inv);
     $em->flush();  
-    return  $this->json($inv,201,['message'=>'scancb']);   
+    return  $this->json($inv,201,['message'=>'scanfa']);   
       
         } catch(NotEncodableValueException $e){ return $this->json(['status'=>400,'message'=>$e->getMessage()]);
         }
@@ -146,6 +146,7 @@ class inventaireController extends AbstractController {
      $inv= $serilizer->deserialize($data,DInventairestockligne::class,'json');
      $qtea=$inv->getIsQtea();
      $prix=$inv->getIsPrixa();
+     $ref=$inv->getArRef();
      $em = $this->getDoctrine()->getManager();
      $em->persist($inv);
      $em->flush();  
