@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DDocentete
 {
+    public function __construct()
+{
+    $this->doDate = new \DateTime();
+    $this->doDatelivr=new \DateTime();
+    $this->doDateexonoration=new \DateTime();
+    $this->cbmodification=new \DateTime();
+}   
     /**
      * @var int|null
      *
@@ -59,7 +66,7 @@ class DDocentete
      *
      * @ORM\Column(name="DO_Nature", type="smallint", nullable=true)
      */
-    private $doNature;
+    private $doNature='0';
 
     /**
      * @var string|null
@@ -73,7 +80,7 @@ class DDocentete
      *
      * @ORM\Column(name="DO_TotalNetHT", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $doTotalnetht;
+    private $doTotalnetht='0';
 
     /**
      * @var string|null
@@ -87,28 +94,28 @@ class DDocentete
      *
      * @ORM\Column(name="DO_TotalHTDev", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $doTotalhtdev;
+    private $doTotalhtdev='0';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="DO_TotalNetHTDev", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $doTotalnethtdev;
+    private $doTotalnethtdev='0';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="DO_Tiers", type="string", length=50, nullable=true)
      */
-    private $doTiers;
+    private $doTiers='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="CG_Num", type="string", length=50, nullable=true)
      */
-    private $cgNum;
+    private $cgNum='';
 
     /**
      * @var int|null
@@ -122,14 +129,14 @@ class DDocentete
      *
      * @ORM\Column(name="DO_CatCompta", type="string", length=50, nullable=true)
      */
-    private $doCatcompta;
+    private $doCatcompta='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="GR_Code", type="string", length=50, nullable=true, options={"default"="N'Maintenance'"})
      */
-    private $grCode = 'N\'Maintenance\'';
+    private $grCode = '';
 
     /**
      * @var string|null
@@ -274,9 +281,9 @@ class DDocentete
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="DO_DateLivr", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="DO_DateLivr", type="datetime", nullable=true)
      */
-    private $doDatelivr = 'CURRENT_TIMESTAMP';
+    private $doDatelivr;
 
     /**
      * @var \DateTime|null
@@ -346,7 +353,7 @@ class DDocentete
      *
      * @ORM\Column(name="DO_Commentaires", type="string", length=0, nullable=true)
      */
-    private $doCommentaires;
+    private $doCommentaires='';
 
     /**
      * @var string|null
@@ -388,7 +395,7 @@ class DDocentete
      *
      * @ORM\Column(name="DO_Cours", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $doCours;
+    private $doCours='1';
 
     /**
      * @var string|null
@@ -437,9 +444,9 @@ class DDocentete
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="cbModification", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="cbModification", type="datetime", nullable=true)
      */
-    private $cbmodification = 'CURRENT_TIMESTAMP';
+    private $cbmodification ;
 
     /**
      * @var int|null
@@ -537,14 +544,14 @@ class DDocentete
      *
      * @ORM\Column(name="CC_Code", type="string", length=50, nullable=true)
      */
-    private $ccCode;
+    private $ccCode='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="BT_Code", type="string", length=50, nullable=true)
      */
-    private $btCode;
+    private $btCode='';
 
     /**
      * @var string|null
@@ -635,14 +642,14 @@ class DDocentete
      *
      * @ORM\Column(name="DO_Representant", type="string", length=50, nullable=true)
      */
-    private $doRepresentant;
+    private $doRepresentant='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="DO_Recouvreur", type="string", length=50, nullable=true)
      */
-    private $doRecouvreur;
+    private $doRecouvreur='';
 
     /**
      * @var string|null
@@ -762,6 +769,13 @@ class DDocentete
      * @ORM\Column(name="EM_CodeTransPROD", type="string", length=50, nullable=true, options={"comment"="Code POMPISTE"})
      */
     private $emCodetransprod;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="[LIVRAISON (Semaine)]", type="string", length=50, nullable=true)
+     */
+    private $livraison;
 
     public function getDoDomaine(): ?int
     {
@@ -2040,7 +2054,17 @@ class DDocentete
         return $this;
     }
 
-  
+    public function getLivraison(): ?string
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(?string $livraison): self
+    {
+        $this->livraison = $livraison;
+
+        return $this;
+    }
 
 
 }

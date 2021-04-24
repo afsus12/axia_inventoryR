@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * DEmployes
  *
  * @ORM\Table(name="D_EMPLOYES", uniqueConstraints={@ORM\UniqueConstraint(name="UK_EM_Code", columns={"EM_Code"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DEmployesRepository")
  */
 class DEmployes
 {

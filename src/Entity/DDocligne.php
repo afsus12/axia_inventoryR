@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DDocligne
 {
+    public function __construct()
+    {
+        $this->doDate = new \DateTime();
+ 
+        $this->cbmodification=new \DateTime();
+    }   
     /**
      * @var int|null
      *
@@ -346,7 +352,7 @@ class DDocligne
      *
      * @ORM\Column(name="DE_CodeDest", type="string", length=50, nullable=true)
      */
-    private $deCodedest;
+    private $deCodedest='';
 
     /**
      * @var string|null
@@ -430,7 +436,7 @@ class DDocligne
      *
      * @ORM\Column(name="DL_NombreArt", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $dlNombreart;
+    private $dlNombreart='1';
 
     /**
      * @var string|null
@@ -472,7 +478,7 @@ class DDocligne
      *
      * @ORM\Column(name="DL_Remise_2", type="decimal", precision=24, scale=6, nullable=true)
      */
-    private $dlRemise2;
+    private $dlRemise2='0';
 
     /**
      * @var string|null
@@ -500,7 +506,7 @@ class DDocligne
      *
      * @ORM\Column(name="DL_TTC", type="smallint", nullable=true)
      */
-    private $dlTtc;
+    private $dlTtc='0';
 
     /**
      * @var string|null
@@ -535,14 +541,14 @@ class DDocligne
      *
      * @ORM\Column(name="DL_MvtStock", type="smallint", nullable=true)
      */
-    private $dlMvtstock;
+    private $dlMvtstock='2';
 
     /**
      * @var bool|null
      *
      * @ORM\Column(name="DL_Solde", type="boolean", nullable=true)
      */
-    private $dlSolde;
+    private $dlSolde='0';
 
     /**
      * @var string|null
@@ -612,7 +618,7 @@ class DDocligne
      *
      * @ORM\Column(name="DL_Valorise", type="smallint", nullable=true)
      */
-    private $dlValorise;
+    private $dlValorise='1';
 
     /**
      * @var int|null
@@ -640,21 +646,21 @@ class DDocligne
      *
      * @ORM\Column(name="AE_Commentaire", type="string", length=300, nullable=true)
      */
-    private $aeCommentaire;
+    private $aeCommentaire='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="AG_CodeBarre", type="string", length=50, nullable=true)
      */
-    private $agCodebarre;
+    private $agCodebarre='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="AG_Ref", type="string", length=50, nullable=true)
      */
-    private $agRef;
+    private $agRef='';
 
     /**
      * @var string|null
@@ -668,14 +674,14 @@ class DDocligne
      *
      * @ORM\Column(name="DL_DesignGamme", type="string", length=500, nullable=true)
      */
-    private $dlDesigngamme;
+    private $dlDesigngamme='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="DL_RefOrig", type="string", length=50, nullable=true)
      */
-    private $dlReforig;
+    private $dlReforig='';
 
     /**
      * @var string|null
@@ -710,7 +716,7 @@ class DDocligne
      *
      * @ORM\Column(name="cbMarqArtComp", type="integer", nullable=true)
      */
-    private $cbmarqartcomp;
+    private $cbmarqartcomp='0';
 
     /**
      * @var int|null
@@ -745,9 +751,9 @@ class DDocligne
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="cbModification", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="cbModification", type="datetime", nullable=true)
      */
-    private $cbmodification = 'CURRENT_TIMESTAMP';
+    private $cbmodification ;
 
     /**
      * @var string|null
@@ -761,21 +767,21 @@ class DDocligne
      *
      * @ORM\Column(name="CC_Code", type="string", length=50, nullable=true)
      */
-    private $ccCode;
+    private $ccCode='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="D_Projet", type="string", length=50, nullable=true)
      */
-    private $dProjet;
+    private $dProjet='';
 
     /**
      * @var string|null
      *
      * @ORM\Column(name="BT_Code", type="string", length=50, nullable=true)
      */
-    private $btCode;
+    private $btCode='';
 
     /**
      * @var string|null
@@ -908,7 +914,7 @@ class DDocligne
      *
      * @ORM\Column(name="LS_NoSerie", type="string", length=50, nullable=true)
      */
-    private $lsNoserie;
+    private $lsNoserie='';
 
     /**
      * @var string|null
@@ -1018,14 +1024,14 @@ class DDocligne
     /**
      * @var string|null
      *
-     * @ORM\Column(name="PAIEMENT COMPL", type="string", length=50, nullable=true)
+     * @ORM\Column(name="[PAIEMENT COMPL]", type="string", length=50, nullable=true)
      */
     private $paiementCompl;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="A RECEVOIR", type="decimal", precision=24, scale=6, nullable=true)
+     * @ORM\Column(name="[A RECEVOIR]", type="decimal", precision=24, scale=6, nullable=true)
      */
     private $aRecevoir;
 

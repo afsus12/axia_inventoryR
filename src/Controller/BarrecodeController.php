@@ -30,12 +30,12 @@ class BarrecodeController extends abstractController
         
     }
     /**
-     * @Route("api/articlebar/{deCode}/{arCodebarre}", name="article_show" )
+     * @Route("api/articlebar/{deIntitule}/{arCodebarre}", name="article_show" )
      * @Method({"GET"})
      */
     public function showAction(DArticleRepository $repository,DArticle $art,DDepot $dep,SerializerInterface $serializer)
     {   
-        $intitu=$dep->getDeCode();
+        $intitu=$dep->getDeIntitule();
         $code=$art->getArCodebarre();
         $em=$repository->Fnd($code,$intitu);
         $data = $this->serialize ->serialize( $em,'json');
@@ -43,7 +43,7 @@ class BarrecodeController extends abstractController
         $response = new Response($data);
         $response->headers->set('Content-Type', 'application/json');
     
-        return $response;
+        return $response;   
     }
 
     

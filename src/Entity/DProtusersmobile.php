@@ -103,6 +103,14 @@ class DProtusersmobile  implements UserInterface
      * @ORM\Column(name="PROTM_Image", type="blob", nullable=true)
      */
     private $protmImage;
+
+
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="EM_Code", type="string", length=50, nullable=false)
+     */
+    private $emCode;
     /**
      * @see UserInterface
      */
@@ -303,6 +311,17 @@ class DProtusersmobile  implements UserInterface
        $this->protmPwd = $protmPwd;
 
        return  $this; 
+    }
+    public function getEmCode(): ?string
+    {
+        return $this->emCode;
+    }
+
+    public function setEmCode(string $emCode): self
+    {
+        $this->emCode = $emCode;
+
+        return $this;
     }
 
 }

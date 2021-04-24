@@ -240,7 +240,7 @@ SQL;
            ->from(DArticle::class, 'a')
             ->from(DArtstock::class,'b')    
             ->from(DDepot::class,'c')
-           ->where('a.arCodebarre = :code','a.arRef=b.arRef','c.deCode=:val','b.deCode=c.deCode')
+           ->where('a.arCodebarre = :code','a.arRef=b.arRef','c.deIntitule=:val','b.deCode=c.deCode')
            ->setParameter('code', $value)
            ->setParameter('val', $value2);
          $query = $queryBuilder->getQuery()->getResult() 
