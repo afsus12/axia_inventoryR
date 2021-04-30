@@ -211,6 +211,7 @@ class DArticle
     private $arComp;
 
     /**
+     * @var string|null
      * 
      * @ORM\Column(name="AR_Photo", type="blob", nullable=true, options={"comment"="Photo Article"})
      * 
@@ -704,7 +705,7 @@ class DArticle
     }
     
     
-    public function getArPhoto():?string
+    public function getArPhoto()
     {
       
      return $this->arPhoto;

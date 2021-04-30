@@ -1,11 +1,10 @@
 doctrine:
     dbal:
         
-        charset:              UTF8
+        charset:              utf8_general_ci
         logging:              '%kernel.debug%'
         server_version:       '12.0'
-        mapping_types:
-            enum: string
+       
         url: '%env(resolve:DATABASE_URL)%'
 
 
