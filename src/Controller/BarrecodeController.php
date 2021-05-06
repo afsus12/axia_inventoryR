@@ -48,8 +48,9 @@ class BarrecodeController extends abstractController
    
         if(empty($dd->findOneBy(['arRef'=>$ref,'deCode'=>$decode]))==false){
         $ph=$pe->getArPhoto();
+        if(empty($ph)==false){
         $data1= base64_encode(stream_get_contents($ph)); 
-        array_push($em,["arPhoto"=>$data1 ]);
+        array_push($em,["arPhoto"=>$data1 ]);}
         }else {throw $this->createNotFoundException('The product does not exist');   return $this;}
 
       

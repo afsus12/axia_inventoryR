@@ -129,9 +129,9 @@ class DMouvementmobile
     /**
      * @var string
      *
-     * @ORM\Column(name="PROT_User", type="string", length=50, nullable=false)
+     * @ORM\Column(name="PROTM_User", type="string", length=50, nullable=false)
      */
-    private $protUser;
+    private $protmUser;
 
     /**
      * @var float
@@ -339,14 +339,14 @@ class DMouvementmobile
         return $this;
     }
 
-    public function getProtUser(): ?string
+    public function getProtmUser(): ?string
     {
-        return $this->protUser;
+        return $this->protmUser;
     }
 
-    public function setProtUser(string $protUser): self
+    public function setProtmUser(string $protmUser): self
     {
-        $this->protUser = $protUser;
+        $this->protmUser = $protmUser;
 
         return $this;
     }

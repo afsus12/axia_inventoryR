@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 
-use App\Entity\DMouvementmobil;
+use App\Entity\DMouvementmobile;
 
 use App\Repository\DArtstockRepository;
 use App\Repository\DDepotRepository;
@@ -31,7 +31,7 @@ public function sortiestock(Request $request,SerializerInterface $serilizer,Vali
    
     $data = $request->getContent();
     try{
-        $mouvemnt= $serilizer->deserialize($data,DMouvementmobil::class,'json');
+        $mouvemnt= $serilizer->deserialize($data,DMouvementmobile::class,'json');
         $mouvemnt->setCbmodification(new \DateTime());
         $mouvemnt->setMbCreatedat(new \DateTime());
         $mouvemnt->setMbType('sortie');
@@ -44,7 +44,7 @@ public function sortiestock(Request $request,SerializerInterface $serilizer,Vali
         $dep=$deprep->findOneBy(['deCode'=>$cd]);
         $intitu=$dep->getDeIntitule();
         $mouvemnt->setDeIntitule($intitu);
-        $prot=$mouvemnt->getProtUser();
+        $prot=$mouvemnt->getProtmUser();
         $mouvemnt->setCbcreateur($prot);
         $vl1=$art->getAsQtesto();
         $mouvemnt->setMbQteancien($vl1);
