@@ -51,7 +51,7 @@ class DMataccessmobileRepository extends ServiceEntityRepository
     public function Finddepot($value):array
     { $entityManager = $this->getEntityManager();
      $queryBuilder = $entityManager->createQueryBuilder();
-     $queryBuilder->select('b.deIntitule')
+     $queryBuilder->select('b.deIntitule','b.deCode')
         ->from(DMataccessmobile::class, 'a') 
         ->from(DDepot::class,'b') 
         

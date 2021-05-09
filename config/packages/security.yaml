@@ -1,5 +1,5 @@
 security:
-    enable_authenticator_manager: true
+    
     encoders:
         App\Entity\DProtusersmobile : md5
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-          
+            anonymous: true
             lazy: true
             provider: database
 

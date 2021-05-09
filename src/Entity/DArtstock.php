@@ -151,9 +151,9 @@ class DArtstock
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="cbModification", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP","comment"="Date de modification"})
+     * @ORM\Column(name="cbModification", type="datetime", nullable=true,)
      */
-    private $cbmodification = 'CURRENT_TIMESTAMP';
+    private $cbmodification ;
 
  
 
