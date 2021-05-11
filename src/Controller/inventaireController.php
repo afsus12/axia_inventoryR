@@ -410,6 +410,10 @@ class inventaireController extends AbstractController {
     } catch(NotEncodableValueException $e){ return $this->json(['status'=>400,'message'=>$e->getMessage()]);
     }
  }
+
+
+
+ 
 }
 
 

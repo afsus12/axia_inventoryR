@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\DInventairestock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\DMataccessmobile;
 
 /**
  * @method DInventairestock|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,29 @@ class DInventairestockRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+    public function Findinvent($value):array
+    { $entityManager = $this->getEntityManager();
+     $queryBuilder = $entityManager->createQueryBuilder();
+     $queryBuilder->select('b')
+        ->from(DMataccessmobile::class, 'a') 
+        ->from(DInventairestock::class,'b') 
+        
+        ->where('a.protmUser = :code')
+        ->andWhere('a.deCode=b.deCode')
+       
+        ->setParameter('code', $value)
+        ->orderBy('b.isDate','DESC')
+        ->orderBy('b.isValide','ASC');
+      $query = $queryBuilder->getQuery()->getResult() 
+      ; 
+      return $query;            
+    }
+
+
+   
+
+
 }
