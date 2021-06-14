@@ -19,12 +19,7 @@ class DMataccessmobile
      */
     private $protmUser;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="DE_Code", type="string", length=50, nullable=false)
-     */
-    private $deCode;
+
 
     /**
      * @var bool
@@ -110,17 +105,7 @@ class DMataccessmobile
         return $this;
     }
 
-    public function getDeCode(): ?string
-    {
-        return $this->deCode;
-    }
 
-    public function setDeCode(string $deCode): self
-    {
-        $this->deCode = $deCode;
-
-        return $this;
-    }
 
     public function getMaAccessentree(): ?bool
     {

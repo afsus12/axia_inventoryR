@@ -24,6 +24,7 @@ class SecurityController extends AbstractController
         "result"=>"true",
         "name"=>"$name",
         "email"=>"$email",
+        "validRight"=> $prot->getProtmRight(),
         'status'=>'1',
         'status_text'=>'login success'],200);
  }}

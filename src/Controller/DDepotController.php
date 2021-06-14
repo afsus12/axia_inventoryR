@@ -23,7 +23,7 @@ class DDepotController extends AbstractController{
    }
 
     /**
-     * @Route("api/Depot/", name="Depot_list" )
+     * @Route("api/Depot/", name="Depottss_list" )
      * @Method({"GET"})
      */
 

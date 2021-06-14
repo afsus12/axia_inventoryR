@@ -4,6 +4,8 @@ namespace App\Repository;
 use App\Entity\DArtstock;
 use App\Entity\DArticle;
 use App\Entity\DDepot;
+use App\Entity\DMouvementmobile;
+use App\Entity\PPreferencesmobile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
@@ -236,7 +238,7 @@ SQL;
        public function Fnd($value,$value2):array
        { $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
-        $queryBuilder->select('a.arRef','a.arDesign','a.arCodebarre','b.asQtesto','c.deCode','c.deIntitule')
+        $queryBuilder->select('a.arRef','a.arDesign','a.arCodebarre','b.asCmup','b.asMontsto','b.asQtesto','c.deCode','c.deIntitule')
            ->from(DArticle::class, 'a')
             ->from(DArtstock::class,'b')    
             ->from(DDepot::class,'c')
@@ -247,6 +249,48 @@ SQL;
          ; 
          return $query;            
        }
+
+       public function Fnd2($value,$value2):array
+       { $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('a.arRef','a.arDesign','a.arCodebarre','b.asCmup','b.asMontsto','b.asQtesto','c.deCode','c.deIntitule')
+           ->from(DArticle::class, 'a')
+            ->from(DArtstock::class,'b')    
+            ->from(DDepot::class,'c')
+           ->where('a.arRef = :code','a.arRef=b.arRef','c.deCode=:val','b.deCode=c.deCode')
+           ->setParameter('code', $value)
+           ->setParameter('val', $value2);
+         $query = $queryBuilder->getQuery()->getResult() 
+         ; 
+         return $query;            
+       }
+
+
+
+
+
+       public function consultation($value,$value2,$value3):array
+       { $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('d')
+           ->from(DArticle::class, 'a')
+            ->from(DArtstock::class,'b')    
+            ->from(DDepot::class,'c')
+            ->from(DMouvementmobile::class,'d')
+            ->from(PPreferencesmobile::class,'f')
+           ->where('a.arCodebarre = :code','a.arRef=d.arRef','a.arRef=b.arRef','c.deIntitule=:val','b.deCode=c.deCode','c.deCode=d.deCode')
+           ->andWhere('f.protmUser=:val2','d.mbCreatedat >=f.pmDate')
+           ->setParameter('code', $value)
+           ->setParameter('val', $value2)
+           ->setParameter('val2', $value3)
+           ->orderBy('d.mbCreatedat','DESC');
+        
+         $query = $queryBuilder->getQuery()->getArrayResult();
+         ; 
+         return $query;            
+       }
+
+
 
 
 }

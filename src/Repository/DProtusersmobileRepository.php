@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\DDepotutilisateurmobile;
 use App\Entity\DProtusersmobile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,4 +48,19 @@ class DProtusersmobileRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function Fndprot($value):array
+    { $entityManager = $this->getEntityManager();
+     $queryBuilder = $entityManager->createQueryBuilder();
+     $queryBuilder->select('b.protmUser')
+        ->from(DDepotutilisateurmobile::class, 'a')
+         ->from(DProtusersmobile::class,'b')    
+       
+        ->where('b.deCode=a.deCode','a.protmUser=:code')
+        ->setParameter('code', $value);        
+
+        $query = $queryBuilder->getQuery()->getResult() 
+      ; 
+      return $query;            
+    }
 }

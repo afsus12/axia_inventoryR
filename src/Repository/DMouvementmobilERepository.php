@@ -47,4 +47,21 @@ class DMouvementmobileRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function Fndza($value,$value2):array
+    { $entityManager = $this->getEntityManager();
+     $queryBuilder = $entityManager->createQueryBuilder();
+     $queryBuilder->select('a.arRef',)
+        ->from(DArticle::class, 'a')
+         ->from(DArtstock::class,'b')    
+         ->from(DDepot::class,'c')
+        ->where('a.faCodefamille=:code1','c.deCode=:code','c.deCode=b.deCode','b.arRef = a.arRef')
+        ->setParameter('code', $value)        
+        ->setParameter('code1', $value2);
+      
+      $query = $queryBuilder->getQuery()->getResult() 
+      ; 
+      return $query;            
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DDepot;
+use App\Entity\DDepotutilisateurmobile;
 use App\Entity\DMataccessmobile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,7 +53,7 @@ class DMataccessmobileRepository extends ServiceEntityRepository
     { $entityManager = $this->getEntityManager();
      $queryBuilder = $entityManager->createQueryBuilder();
      $queryBuilder->select('b.deIntitule','b.deCode')
-        ->from(DMataccessmobile::class, 'a') 
+        ->from(DDepotutilisateurmobile::class, 'a') 
         ->from(DDepot::class,'b') 
         
         ->where('a.protmUser = :code')

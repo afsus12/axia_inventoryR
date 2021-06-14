@@ -150,16 +150,16 @@ class DInventairestockligne
     /**
      * @var string|null
      *
-     * @ORM\Column(name="cbCreateur", type="string", length=50, nullable=true, options={"default"="CSQL"})
+     * @ORM\Column(name="cbCreateur", type="string", length=50, nullable=true)
      */
-    private $cbcreateur = 'CSQL';
+    private $cbcreateur ;
 
     /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="cbModification", type="datetime", nullable=true)
      */
-    private $cbmodification = 'CURRENT_TIMESTAMP';
+    private $cbmodification;
 
     /**
      * @var string|null

@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\DDepotutilisateurmobile;
 use App\Entity\DInventairestock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\DMataccessmobile;
+use App\Entity\PPreferencesmobile;
 
 /**
  * @method DInventairestock|null find($id, $lockMode = null, $lockVersion = null)
@@ -55,15 +57,17 @@ class DInventairestockRepository extends ServiceEntityRepository
     { $entityManager = $this->getEntityManager();
      $queryBuilder = $entityManager->createQueryBuilder();
      $queryBuilder->select('b')
-        ->from(DMataccessmobile::class, 'a') 
+        ->from(DDepotutilisateurmobile::class, 'a') 
         ->from(DInventairestock::class,'b') 
+        ->from(PPreferencesmobile::class,'c')
         
         ->where('a.protmUser = :code')
         ->andWhere('a.deCode=b.deCode')
+        ->andWhere('c.protmUser =a.protmUser')
+        ->andWhere('b.isDate >=c.pmDate')
        
         ->setParameter('code', $value)
-        ->orderBy('b.isDate','DESC')
-        ->orderBy('b.isValide','ASC');
+        ->orderBy('b.isDate','DESC');
       $query = $queryBuilder->getQuery()->getResult() 
       ; 
       return $query;            

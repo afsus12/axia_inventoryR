@@ -3,8 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\DArticle;
 use App\Entity\DArtstock;
 use App\Entity\DBontravail;
+use App\Entity\DDepot;
 use App\Entity\DInventairestockligne;
 use App\Repository\DArticleRepository;
 use App\Repository\DArtstockRepository;
@@ -13,9 +15,11 @@ use App\Entity\DInventairestock;
 use App\Entity\DDocentete;
 use App\Entity\DDocligne;
 use App\Entity\DEmployes;
+use App\Entity\DMouvementmobile;
 use App\Entity\DProtusersmobile;
 use App\Entity\PSouchesutilisateurs;
 use App\Repository\DBontravailRepository;
+use App\Repository\DDepotRepository;
 use App\Repository\DEmployesRepository;
 use App\Repository\DInventairestockRepository;
 use App\Repository\DProtusersmobileRepository;
@@ -47,56 +51,7 @@ class inventaireController extends AbstractController {
             $inv->setIsValide(0);
             $inv->setIsDate(new DateTime());
             $inv->setCbmodification(new DateTime());
-            $fad=$inv->getFaCodefamille();
-            if (empty($fad)==false){
-             $pi=$inv->getPiIntitule();
-             $cd=$inv->getDeCode();
-             $art=$artrep->findBy(['faCodefamille'=>$fad]);
-             foreach($art as $event)
-{      $invsto= new DInventairestockligne();
-        $invsto->setPiIntitule($pi);
-        $invsto->setDeCode($cd);
-        $ref=$event->getArRef();
-        $invsto->setArRef($ref);
-        $invsto->setFaCodefamille($fad);
-        $desing=$event->getArDesign();
-        $invsto->setArDesign($desing);
-        $type=$event->getArType();
-        $invsto->setArType($type);
-        $invsto->setEgEnumere1("");
-        $invsto->setEgEnumere2("");
-        $invsto->setGamme1("");
-        $invsto->setGamme2("");
-        $unite=$event->getArUnite();
-        $invsto->setArUnite("$unite");
-        $artsto=$artsrep->findOneBy(['arRef'=>$ref,
-        'deCode'=>$cd]);
-        if(empty($artsto)==false){
-        $qte=$artsto->getAsQtesto();
-        $invsto->setIsQte($qte);
-        $cmup=$artsto->getAsCmup();
-        $invsto->setIsCmup($cmup);
-        $iscode=$inv->getIsCode();
-        $invsto->setIsCode($iscode);
-        $invsto->setCbcreateur('elitex47');
-        $invsto->setCbmodification(new DateTime());
- 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($invsto);
-        $em->flush();  
-        }
-
-}
-
-
-
-            }else{ 
-
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($inv);
-                $em->flush();  
-                return $this->json($inv,201,['message'=>'scancb']);               
-            }
+        
     $em = $this->getDoctrine()->getManager();
     $em->persist($inv);
     $em->flush();  
@@ -150,14 +105,23 @@ class inventaireController extends AbstractController {
      * @Route("api/inventaire/inventairestockbc", name="inventaire_stockba")
      * @Method({"POST"})
      */
-    public function inventaireSetbybacode(Request $request,SerializerInterface $serilizer,DInventairestockligneRepository $invrep)
+    public function inventaireSetbybacode(Request $request,SerializerInterface $serilizer,DInventairestockligneRepository $invrep,DArtstockRepository $artsrep)
     {
      $data = $request->getContent();
      try{
      $inv= $serilizer->deserialize($data,DInventairestockligne::class,'json');
+     $qte=$inv->getIsQte();
      $qtea=$inv->getIsQtea();
      $prix=$inv->getIsPrixa();
      $ref=$inv->getArRef();
+     $cd=$inv->getDeCode();
+     $artsto=$artsrep->findOneBy(['arRef'=>$ref,
+     'deCode'=>$cd]);
+     $cmup=$artsto->getAsCmup();
+     $inv->setIsCmup($cmup);
+     $inv->setIsDifferenceqte($qte-$qtea);
+     $inv->setIsDifferenceprix($cmup-$prix); 
+     $inv-> setCbmodification(new DateTime());
      $em = $this->getDoctrine()->getManager();
      $em->persist($inv);
      $em->flush();  
@@ -170,7 +134,7 @@ class inventaireController extends AbstractController {
      * @Route("api/inventaire/validation/{piIntitule}/{protmUser}/{sIntitule}", name="inventaire_validation")
      * @Method({"POST"})
      */
-    public function validation(DInventairestockRepository $invenr,DBontravailRepository $brep,PSouchesutilisateurs $souchu,DEmployesRepository $ems,DRessourcesRepository $emprep,DProtusersmobileRepository $protrep,DProtusersmobile $prot,DInventairestockligneRepository $invli,DInventairestockligne $inv,Request $request,SerializerInterface $serilizer,DInventairestockligneRepository $invrep,DArticleRepository $artrep,DArtstockRepository $artsore)
+    public function validation(DInventairestockRepository $invenr,DBontravailRepository $brep,PSouchesutilisateurs $souchu,DEmployesRepository $ems,DRessourcesRepository $emprep,DProtusersmobileRepository $protrep,DProtusersmobile $prot,DInventairestockligneRepository $invli,DInventairestockligne $inv,Request $request,SerializerInterface $serilizer,DInventairestockligneRepository $invrep,DArticleRepository $artrep,DArtstockRepository $artsore,DArticleRepository $darticlerepm,DDepotRepository $deoo)
     {
      $data = $request->getContent();
      try{
@@ -192,6 +156,27 @@ class inventaireController extends AbstractController {
       $desing=$ligne->getArDesign();
       $dce= new DDocentete();
       $dll= new DDocligne();
+      $mvms=new DMouvementmobile();
+      $mvms->setMbQtesortie($qte);
+      $mvms->setArRef($ref);
+      $mvsa=$darticlerepm->findOneBy(['arRef'=>$ref]);
+      $mvms->setArCodebarre($mvsa->getArCodebarre());
+      $mvms->setCbcreateur($prtouser);
+      $mvms->setCbmodification(new \DateTime());
+      $mvms->setMbCreatedat(new \DateTime());
+      $mvms->setMbQteentre(0);
+      $mvms->setMbQtetrans(0);
+      $mvms->setAsQtesto(0);
+      $mvms->setMbQteancien($qte);
+      $mvms->setAsMontsto(0);
+      $mvms->setMbType("inventaire sortie");
+      $mvms->setProtmUser($prtouser);
+      $mvms->setDeCode($cd);
+      $dddd=$deoo->findOneBy(["deCode"=>$cd]);
+     $mvms->setDeIntitule(  $dddd->getDeIntitule());
+     $em = $this->getDoctrine()->getManager();
+     $em->persist($mvms);
+     $em->flush(); 
       $dce->setDoDomaine(2);
       $dce->setDoType(21);
       $i=$i+1;
@@ -207,6 +192,7 @@ class inventaireController extends AbstractController {
       $dce->setDeCode($cd);
       $dce->setEmCode($emcode);
       $emp=$emprep->findOneBy(['emCode'=>$emcode]);
+      if($emp!=null){
       $rp=$emp->getRpCode();
       $dce->setRpCode($rp);
       $dce->setCbcreateur($prtouser);
@@ -214,6 +200,7 @@ class inventaireController extends AbstractController {
      
 
       $s=$ems->findOneBy(['emCode'=>$emcode]);
+    }
       $em = $this->getDoctrine()->getManager();
      $em->persist($dce);
      $em->flush(); 
@@ -251,10 +238,11 @@ class inventaireController extends AbstractController {
      $dll->setDlCmup($pu);
      $dll->setEmCode($emcode);
      $dll->setCbcreateur($prtouser);
+     if($emp!=null){
      $dll->setRpCode($rp);
      $bont=$brep->findOneBy(['rpCode'=>$rp]);
      $cccode=$emp->getCcCode();
-     $dll->setCcCode($cccode);
+     $dll->setCcCode($cccode);}
      $dll->setDlNo($i);
      $em = $this->getDoctrine()->getManager();
      $em->persist($dll,$artstock1);
@@ -269,8 +257,9 @@ class inventaireController extends AbstractController {
      $dce->setDeCode($cd);
      $dce->setEmCode($emcode);
      $em=$emprep->findOneBy(['emCode'=>$emcode]);
+     if($em!=null){
      $rp=$em->getRpCode();
-     $dce->setRpCode($rp);
+     $dce->setRpCode($rp);}
      $dce->setCbcreateur($prtouser);
      $s=$ems->findOneBy(['emCode'=>$emcode]);
      $em = $this->getDoctrine()->getManager();
@@ -306,20 +295,46 @@ class inventaireController extends AbstractController {
      $dll->setDlCmup($pu);
      $dll->setEmCode($emcode);
      $dll->setCbcreateur($prtouser);
+     if($emp!=null){
      $dll->setRpCode($rp);
      $bont=$brep->findOneBy(['rpCode'=>$rp]);
      $cccode=$emp->getCcCode();
+     $dll->setCcCode($cccode);}
      $cupi=$artstock1->getAsCmup();
      $montan=$cupi*$qtea;
      $artstock1->setAsMontsto($montan);
      $artstock1->setAsCmup($prix);
-     $dll->setCcCode($cccode);
+     $article->setArPrixach($prix);
+     $em = $this->getDoctrine()->getManager();
+    $em->persist($article);
+    $em->flush(); 
+  
      $dll->setDlNo($i);
      $em = $this->getDoctrine()->getManager();
      $em->persist($dll,$artstock1);
      $em->flush();
      
-     
+     $mvms=new DMouvementmobile();
+     $mvms->setMbQtesortie(0);
+     $mvms->setArRef($ref);
+     $mvsa=$darticlerepm->findOneBy(['arRef'=>$ref]);
+     $mvms->setArCodebarre($mvsa->getArCodebarre());
+     $mvms->setCbcreateur($prtouser);
+     $mvms->setCbmodification(new \DateTime());
+     $mvms->setMbCreatedat(new \DateTime());
+     $mvms->setMbQteentre($qtea);
+     $mvms->setMbQtetrans(0);
+     $mvms->setAsQtesto($qtea);
+     $mvms->setMbQteancien(0);
+     $mvms->setAsMontsto($montan);
+     $mvms->setMbType("inventaire entree");
+     $mvms->setProtmUser($prtouser);
+     $mvms->setDeCode($cd);
+     $dddd=$deoo->findOneBy(["deCode"=>$cd]);
+    $mvms->setDeIntitule(  $dddd->getDeIntitule());
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($mvms);
+    $em->flush(); 
      
 
       
@@ -413,7 +428,6 @@ class inventaireController extends AbstractController {
 
 
 
- 
 }
 
 

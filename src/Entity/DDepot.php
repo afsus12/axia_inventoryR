@@ -27,6 +27,7 @@ class DDepot
     /**
      * @var string
      * @ORM\Column(name="[DE_Code]", type="string", length=50, nullable=false)
+     *@Groups({"inti"}) 
      */
     private $deCode;
 

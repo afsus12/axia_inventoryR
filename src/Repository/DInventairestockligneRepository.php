@@ -47,4 +47,17 @@ class DInventairestockligneRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function deletear($pi,$ref)
+    {      
+        $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->delete(DInventairestockligne::class, 'a')
+        ->where('a.piIntitule = :code1')
+        ->andwhere('a.arRef = :code2')
+        ->setParameter('code1', $pi)
+        ->setParameter('code2', $ref)
+        ->getQuery()
+        ->execute();
+        ;
+    }
 }
